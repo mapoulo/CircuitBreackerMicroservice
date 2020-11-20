@@ -1,0 +1,26 @@
+package com.example.demo.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.example.demo.commonHyStrixCommand.MyHystrixCommad;
+
+@RestController
+@RequestMapping("/customers")
+public class CustomerController {
+
+	@Autowired
+	RestTemplate template;
+	
+	@RequestMapping("/getcustomers/{movie}")
+	public String getMovies(@PathVariable String movie) {
+		return template.getForObject("http://MOVIES-SERVICE/movies/getmovies/"+movie, String.class);
+	}
+	
+	
+	MyHystrixCommad<String>  theCommand = new MyHystrixCommad<String>("",()->{return template.getForObject("", String.class);});
+	
+}

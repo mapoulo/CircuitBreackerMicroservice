@@ -1,0 +1,5 @@
+package com.example.demo.hystrix;
+
+public class CommonHystrix {
+
+}
